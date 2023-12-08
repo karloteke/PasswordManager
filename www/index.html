@@ -4,12 +4,84 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Iconos-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/style.css">
+  <title>Gestor de contraseñas</title>
 </head>
+
 <body>
-  <main>
-    <ul></ul>
-  </main>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <h1 class="navbar-brand navbar-light">Gestor de Contraseñas</h1>
+  </nav>
+  <header>
+    <div class="container">
+      <button type="button" class="btn btn-info">Añadir categoría</button>
+      <a href="/addNewSite.html" class="btn-info btn lg ml-5">Añadir sitio</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="container mt-5 py-5">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4>CATEGORÍAS</h4>
+          <div class="list-group" id="categoryList">
+            <a href="#" class="list-group-item list-group-item-action">Gmail</a>
+          </div>
+
+        </div>
+        <div class="col-md-8">
+          <table class="table" id="siteInformation">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">SITIO</th>
+                <th scope="col">USUARIO</th>
+                <th scope="col">FECHA CREACIÓN</th>
+                <th scope="col">ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Gmail</th>
+                <td>Mark</td>
+                <td>12/12/2023</td>
+                <td>
+                  <i class="fas fa-external-link-alt mr-3"></i>
+                  <i class="fas fa-edit mr-3"></i>
+                  <i class="fas fa-trash-alt"></i>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Facebook</th>
+                <td>Jacob</td>
+                <td>10/12/2023</td>
+                <td>
+                  <i class="fas fa-external-link-alt mr-3"></i>
+                  <i class="fas fa-edit mr-3"></i>
+                  <i class="fas fa-trash-alt"></i>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Instagram</th>
+                <td>Larry</td>
+                <td>07/12/2023</td>
+                <td>
+                  <i class="fas fa-external-link-alt mr-3"></i>
+                  <i class="fas fa-edit mr-3"></i>
+                  <i class="fas fa-trash-alt"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
   <script>
     let drawData = (data) => {
       data.forEach(category => {
