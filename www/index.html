@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/style.css">
+  <script src="category.js"></script>
   <title>Gestor de contraseñas</title>
 </head>
 
@@ -19,7 +20,7 @@
   </nav>
   <header>
     <div class="container">
-      <button type="button" class="btn btn-info">Añadir categoría</button>
+      <button type="button" class="btn btn-info" onclick="openModal()">Añadir categoría</button>
       <a href="/addNewSite.html" class="btn-info btn lg ml-5">Añadir sitio</a>
     </div>
   </header>
@@ -81,21 +82,21 @@
       </div>
     </div>
   </section>
- 
-  <script>
-    let drawData = (data) => {
-      data.forEach(category => {
-        let parent = document.getElementsByTagName('ul')[0]
-        let child = document.createElement('li')
-        // child.innerText = JSON.stringify(category)
-        child.innerText = category.name
-        parent.appendChild(child)
-      })
-    }
 
-    fetch("http://localhost:3000/categories")
-      .then(res => res.json())
-      .then(data => drawData(data))
-  </script>
+  <div class="myModal" id="myModal">
+    <div class="form-group">
+      <h3>Nombre</h3>
+      <p class="error" id="error">Error. Debes introducir un nombre.</p>
+      <input type="text" id="name">
+      <button class="btn btn-success" onclick="addCategory()">Añadir</button>
+      <button class="btn btn-danger ml-4" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+   <!-- Bootstrap JS y dependencias -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
