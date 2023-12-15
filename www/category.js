@@ -1,18 +1,22 @@
 let drawCategories = (data) => {
   let parent = document.getElementById('categoryList');
   parent.innerHTML = '';   // Limpiar la lista antes de agregar las categorías
+
   data.forEach(category => {
     let child = document.createElement('a');
     child.className = "list-group-item list-group-item-action";
     child.innerText = category.name;
     child.style.cursor = 'pointer';
+    child.href = `#${category.id}`;  // Agregar un atributo href para crear el enlace
 
-    let deleteIcon = document.createElement('i'); // Agregar el ícono de eliminar
+    // Agregar el ícono de eliminar
+    let deleteIcon = document.createElement('i'); 
     deleteIcon.className = 'fas fa-trash-alt';
     deleteIcon.style.cursor = 'pointer';
 
     deleteIcon.addEventListener('click', () => deleteCategory(category.id));// Evento de clic al ícono de eliminar
     child.appendChild(deleteIcon); // Agregar el ícono al final del elemento de la lista
+    child.addEventListener('click', () => showCategorySites(category.id));
     parent.appendChild(child);
   });
 }
@@ -126,5 +130,55 @@ function deleteCategory(categoryId) {
         console.error('Error en la petición:', error);
       });
   });
-
 }
+
+function showCategorySites(categoryId) {
+  fetch(`http://localhost:3000/categories/${categoryId}`)
+    .then(result => result.json())
+    .then(data => {
+      const sites = data.sites
+      console.log(data)
+
+      const siteTableBody = document.getElementById('siteTableBody');
+
+      siteTableBody.innerHTML = '';
+
+      sites.forEach(sites => {
+
+        const newRow = document.createElement('tr')
+
+        const nameCell = document.createElement('th')
+        nameCell.textContent = sites.name;
+
+        const userCell = document.createElement('td')
+        userCell.textContent = sites.user;
+
+        const createdAtCell = document.createElement ('td')
+        createdAtCell.textContent = sites.createdAt;
+
+        const actionsCell = document.createElement('td');
+          actionsCell.innerHTML = `
+          <div class = "icon-container">
+            <i class="fas fa-external-link-alt mr-3"></i>
+          
+          <div class = "icon-container">
+            <i class="fas fa-edit mr-3"></i>
+          </div>
+          <div class = "icon-container">
+            <i class="fas fa-trash-alt"></i>
+          </div>
+          `;
+
+        // Agregar celdas a la fila
+        newRow.appendChild(nameCell);
+        newRow.appendChild(userCell);
+        newRow.appendChild(createdAtCell);
+        newRow.appendChild(actionsCell)
+
+        // Agregar fila a la tabla
+        siteTableBody.appendChild(newRow);
+      });
+    })
+    .catch(error => console.error(`Error en la petición:', ${error}`));
+  }
+    
