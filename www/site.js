@@ -58,45 +58,4 @@ function addNewSiteToCategory() {
     }
   }  
    
-  function deleteBtn(idSite, idCategory) {
-    console.log('delete, id: ', idSite);
-    openModalConfirmation();
-    waitForModalConfirmation().then(shouldDelete => {
-      if (!shouldDelete) {
-        closeModalConfirmation();
-        return;
-      }
 
-      const apiUrl = `http://localhost:3000/sites/${idSite}`;
-  
-      // Cabecera petición
-      const requestOptions = {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-  
-      fetch(apiUrl, requestOptions)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Error en la petición`);
-          }
-          return Promise.resolve();
-        })
-        .then(() => { // Después de eliminar, volver a cargar los sitios
-          fetch("http://localhost:3000/sites")
-            .then(res => res.json())
-            .then(data => {
-              showCategorySites(idCategory);
-              closeModalConfirmation(); // Cerrar el modal después de actualizar la lista
-            })
-            .catch(error => {
-              console.error('Error al cargar categorías:', error);
-            });
-        })
-        .catch(error => {
-          console.error('Error en la petición:', error);
-        });
-    });
-  }
