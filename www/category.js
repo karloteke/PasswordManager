@@ -151,25 +151,25 @@ function showCategorySites(categoryId) {
 
       siteTableBody.innerHTML = '';
 
-      sites.forEach(sites => {
+      sites.forEach(site => {
 
         const newRow = document.createElement('tr')
 
         const nameCell = document.createElement('th')
-        nameCell.textContent = sites.name;
+        nameCell.textContent = site.name;
 
         const userCell = document.createElement('td')
-        userCell.textContent = sites.user;
+        userCell.textContent = site.user;
 
         const createdAtCell = document.createElement ('td')
-        createdAtCell.textContent = sites.createdAt;
+        createdAtCell.textContent = site.createdAt;
 
         const actionsCell = document.createElement('td');
           actionsCell.innerHTML = `
           <div class = "icon-container">
             <i class="fas fa-external-link-alt mr-3"></i>
             <i class="fas fa-edit mr-3"></i>
-            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-trash-alt" onclick="deleteBtn('${site.id}', '${categoryId}')"></i>
           </div>
           `;
 
@@ -190,7 +190,6 @@ function showCategorySites(categoryId) {
     if (selectedCategoryId !== null) {
       window.location.href = `/addNewSite.html?categoryId=${selectedCategoryId}`;
     } else {
-      // Error, debes seleccionar antes una categoría
       showMessage('Debes seleccionar primero una categoría!');
       setTimeout(() => {
         hideMessage();

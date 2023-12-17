@@ -20,7 +20,7 @@
   </nav>
 
   <form class="container mt-5 ml-6" name="login" id="login">
-    <label for="name-url" class="form-label">Name</label>
+    <label for="basic-name" class="form-label">Name</label>
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="name" name="name" onkeyup="checkFields()" aria-describedby="basic-addon3">
     </div>
@@ -32,13 +32,13 @@
     
     <label for="basic-user" class="form-label">Usuario</label>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Nombre usuario" name="user" id="user" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="Nombre usuario" name="user" onkeyup="checkFields()" id="user" aria-label="Username" aria-describedby="basic-addon1">
     </div>
 
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Contraseña</label>
       <div class="input-group">
-        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
+        <input type="password" name="password" id="password" class="form-control" onkeyup="checkFields()" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
         <span class="input-group-append">
           <button class="btn btn-outline-secondary" type="button">
             <i class="fas fa-lock"></i>
@@ -57,14 +57,6 @@
       <input type="button" name="save" disabled class="btn-success btn lg ml-3" onclick="addNewSiteToCategory()" value="Añadir">
     </div> 
   </form> 
-
-  <div class="myModal" id="myModalWarning">
-    <div class="form-group">
-      <h3 id="warningMessage">Debes de introducir nombre,usuario y contraseña</h3>
-      <button class="btn btn-primary" onclick="closeModal()">Aceptar</button>
-    </div>
-  </div>
-  <div id="messageAlert"></div>
   <script src="category.js"></script>
   <script src="site.js"></script>
 </body>

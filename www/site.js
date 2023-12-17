@@ -8,17 +8,6 @@ function addNewSiteToCategory() {
   let password = document.getElementsByName("password")[0].value;
   let description = document.getElementsByName("description")[0].value;
 
-  // Verificar si los campos requeridos están vacíos
-  if (!siteName || !userName || !password) {
-    showMessage('Debes rellenar nombre, usuario y contraseña');
-    setTimeout(() => {
-      hideMessage();
-    }, 3000);
-
-
-    return;
-  }
-
   const data = {
     name: siteName,
     url: siteURL,
@@ -52,32 +41,62 @@ function addNewSiteToCategory() {
     });
 }
 
-    function openModalWarning() {
-      document.getElementById("myModalWarning").classList.add("active");
-      document.getElementById("overlay").classList.add("active");
-    }
-    function closeModalWarning() {
-      document.getElementById("myModalWarning").classList.remove("active");
-      document.getElementById("overlay").classList.remove("active");
-    }
-
     function resetForm(){
       document.login.reset();
     }
 
   //Funcion para habilitar y deshabilitar el botón de guardar
   function checkFields() {
-    console.log('Exec');
-    const urlInput = document.forms['login'].elements['url'].value;
+    const nameInput = document.forms['login'].elements['name'].value;
     const userInput = document.forms['login'].elements['user'].value;
     const passwordInput = document.forms['login'].elements['password'].value;
-    const descriptionInput = document.forms['login'].elements['description'].value;
 
-    document.login.save;
-    
-    if(urlInput != "" && userInput != "" && passwordInput != "" && descriptionInput != ""){
-        document.login.save.disabled = true;
-    }else{
+    if(nameInput != "" && userInput != "" && passwordInput != ""){
         document.login.save.disabled = false;
+    }else{
+        document.login.save.disabled = true;
     }
-  }       
+  }  
+   
+  function deleteBtn(idSite, idCategory) {
+    console.log('delete, id: ', idSite);
+    openModalConfirmation();
+    waitForModalConfirmation().then(shouldDelete => {
+      if (!shouldDelete) {
+        closeModalConfirmation();
+        return;
+      }
+
+      const apiUrl = `http://localhost:3000/sites/${idSite}`;
+  
+      // Cabecera petición
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+  
+      fetch(apiUrl, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error en la petición`);
+          }
+          return Promise.resolve();
+        })
+        .then(() => { // Después de eliminar, volver a cargar los sitios
+          fetch("http://localhost:3000/sites")
+            .then(res => res.json())
+            .then(data => {
+              showCategorySites(idCategory);
+              closeModalConfirmation(); // Cerrar el modal después de actualizar la lista
+            })
+            .catch(error => {
+              console.error('Error al cargar categorías:', error);
+            });
+        })
+        .catch(error => {
+          console.error('Error en la petición:', error);
+        });
+    });
+  }
