@@ -21,9 +21,14 @@ let drawCategories = (data) => {
   });
 }
 
-fetch("http://localhost:3000/categories")
-  .then(res => res.json())
-  .then(data => drawCategories(data))
+document.addEventListener('DOMContentLoaded', function() { //Se ejecuta cuando el Dom este cargado
+  let parent = document.getElementById('categoryList');
+  if (parent) {  //Se ejecuta solo cuando el elemento esta en categoryList
+      fetch("http://localhost:3000/categories")
+          .then(res => res.json())
+          .then(data => drawCategories(data));
+  }
+});
 
 //Modal para añadir categoría
 function openModal() {
@@ -132,7 +137,10 @@ function deleteCategory(categoryId) {
   });
 }
 
+let selectedCategoryId = null; // Variable global para almacenar el ID de la categoría seleccionada
+
 function showCategorySites(categoryId) {
+  selectedCategoryId = categoryId; // Almacena el ID de la categoría seleccionada
   fetch(`http://localhost:3000/categories/${categoryId}`)
     .then(result => result.json())
     .then(data => {
@@ -160,11 +168,7 @@ function showCategorySites(categoryId) {
           actionsCell.innerHTML = `
           <div class = "icon-container">
             <i class="fas fa-external-link-alt mr-3"></i>
-          
-          <div class = "icon-container">
             <i class="fas fa-edit mr-3"></i>
-          </div>
-          <div class = "icon-container">
             <i class="fas fa-trash-alt"></i>
           </div>
           `;
@@ -181,4 +185,27 @@ function showCategorySites(categoryId) {
     })
     .catch(error => console.error(`Error en la petición:', ${error}`));
   }
-    
+
+  function navigateAddSite() {
+    if (selectedCategoryId !== null) {
+      window.location.href = `/addNewSite.html?categoryId=${selectedCategoryId}`;
+    } else {
+      // Error, debes seleccionar antes una categoría
+      showMessage('Debes seleccionar primero una categoría!');
+      setTimeout(() => {
+        hideMessage();
+      }, 3000);
+    }
+   
+  }
+
+  function showMessage(text) {
+    document.getElementById('messageAlert').style.display = 'block';
+    document.getElementById('messageAlert').innerHTML = text;
+  }
+
+  function hideMessage() {
+    document.getElementById('messageAlert').style.display = 'none';
+    document.getElementById('messageAlert').innerHTML = '';
+  }
+  
