@@ -4,33 +4,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pantalla añadir/editar</title>
+  <title>Sitios de las categorias</title>
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    <!-- Iconos-->
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+   <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <h1 class="navbar-brand navbar-light">Añadir/Editar sitio</h1>
+    <div class="navbar-wrapper">
+        <h1 class="navbar-brand navbar-light">Añadir sitio a categoría</h1>
+    </div>
   </nav>
 
-  <form class="container mt-5 ml-6">
+  <form class="container mt-5 ml-6" name="login" id="login">
+    <label for="name-url" class="form-label">Name</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="name" name="name" onkeyup="checkFields()" aria-describedby="basic-addon3">
+    </div>
+
     <label for="basic-url" class="form-label">URL</label>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="http://facebook.com" id="basic-url" aria-describedby="basic-addon3">
+      <input type="text" class="form-control" placeholder="http://site.com" name="url" aria-describedby="basic-addon3">
     </div>
     
     <label for="basic-user" class="form-label">Usuario</label>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Nombre usuario" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="Nombre usuario" name="user" id="user" aria-label="Username" aria-describedby="basic-addon1">
     </div>
 
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Contraseña</label>
       <div class="input-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
         <span class="input-group-append">
           <button class="btn btn-outline-secondary" type="button">
             <i class="fas fa-lock"></i>
@@ -41,13 +49,23 @@
    
     <label for="textarea" class="form-label">Descripción</label>
     <div class="input-group">
-      <textarea class="form-control" placeholder="Texto" aria-label="With textarea"></textarea>
+      <textarea class="form-control" name="description" id="description" placeholder="Texto" aria-label="With textarea"></textarea>
     </div>
 
     <div class="d-flex justify-content-center mt-5">
-      <button type="button" class="btn-danger btn lg  ml-5">Cancelar</button>
-      <button type="button" class="btn-success btn lg ml-3">Guardar</button>
+      <button type="button" class="btn-danger btn lg ml-5" onclick="resetForm()">Cancelar</button>
+      <input type="button" name="save" disabled class="btn-success btn lg ml-3" onclick="addNewSiteToCategory()" value="Añadir">
     </div> 
   </form> 
+
+  <div class="myModal" id="myModalWarning">
+    <div class="form-group">
+      <h3 id="warningMessage">Debes de introducir nombre,usuario y contraseña</h3>
+      <button class="btn btn-primary" onclick="closeModal()">Aceptar</button>
+    </div>
+  </div>
+  <div id="messageAlert"></div>
+  <script src="category.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>

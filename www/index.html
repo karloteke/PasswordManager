@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/style.css">
-  <script src="category.js"></script>
   <title>Gestor de contraseñas</title>
 </head>
 
@@ -18,13 +17,12 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="navbar-wrapper">
         <h1 class="navbar-brand navbar-light">Gestor de Contraseñas</h1>
-    </div>
-   
+    </div> 
   </nav>
   <header>
     <div class="container">
       <button type="button" class="btn btn-info" onclick="openModal()">Añadir categoría</button>
-      <a href="/addNewSite.html" class="btn-info btn lg">Añadir sitio</a> 
+      <button onclick="navigateAddSite()" class="btn-info btn lg">Añadir sitio</button>
     </div>
   </header>
 
@@ -66,6 +64,7 @@
       <button class="btn btn-danger ml-4" onclick="closeModal()">Cerrar</button>
     </div>
   </div>
+
   <div class="myModal" id="myModalConfirmation">
     <div class="form-group">
       <h3>¿Estas seguro que quieres eliminar la categoría?</h3>
@@ -74,7 +73,10 @@
     </div>
   </div>
   <div class="overlay" id="overlay"></div>
+  <div id="messageAlert"></div>
   
+  <script src="category.js"></script>
+  <script src="site.js"></script>
    <!-- Bootstrap JS y dependencias -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
