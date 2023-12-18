@@ -201,7 +201,6 @@ function showCategorySites(categoryId) {
         hideMessage();
       }, 3000);
     }
-  
   }
   
   function showMessage(text) {
