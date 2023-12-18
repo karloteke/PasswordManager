@@ -41,26 +41,24 @@ function addNewSiteToCategory() {
     });
 }
 
-    function openModalWarning() {
-      document.getElementById("myModalWarning").classList.add("active");
-      document.getElementById("overlay").classList.add("active");
-    }
-    function closeModalWarning() {
-      document.getElementById("myModalWarning").classList.remove("active");
-      document.getElementById("overlay").classList.remove("active");
-    }
+  function openModalWarning() {
+    document.getElementById("myModalWarning").classList.add("active");
+    document.getElementById("overlay").classList.add("active");
+  }
+  function closeModalWarning() {
+    document.getElementById("myModalWarning").classList.remove("active");
+    document.getElementById("overlay").classList.remove("active");
+  }
 
-    function resetForm(){
-      document.login.reset();
-    }
+  function resetForm(){
+    document.login.reset();
+  }
 
   //Funcion para habilitar y deshabilitar el botón de guardar
   function checkFields() {
     const nameInput = document.forms['login'].elements['name'].value;
     const userInput = document.forms['login'].elements['user'].value;
     const passwordInput = document.forms['login'].elements['password'].value;
-
-    document.login.save;
     
     if(nameInput != "" && userInput != "" && passwordInput != ""){
         document.login.save.disabled = false;
