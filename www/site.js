@@ -8,6 +8,11 @@ function addNewSiteToCategory() {
   let password = document.getElementsByName("password")[0].value;
   let description = document.getElementsByName("description")[0].value;
 
+    // Validar la contraseña
+    if (!validatePass(password)) {
+      return; 
+    }  
+
   const data = {
     name: siteName,
     url: siteURL,
@@ -65,6 +70,27 @@ function addNewSiteToCategory() {
     }else{
         document.login.save.disabled = true;
     }
-  }     
+  }    
   
+  function validatePass(password) {
+    if (password.length < 8) {
+      showMessage('La contraseña debe contener al menos 8 carácteres');
+      setTimeout(() => {
+        hideMessage();
+      }, 3000);
+      return false;
+    }
+    return true;
+  }
+
+  function showMessage(text) {
+    document.getElementById('messageAlert').style.display = 'block';
+    document.getElementById('messageAlert').innerHTML = text;
+  }
+  
+  function hideMessage() {
+    document.getElementById('messageAlert').style.display = 'none';
+    document.getElementById('messageAlert').innerHTML = '';
+  }
+
   

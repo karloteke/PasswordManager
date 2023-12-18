@@ -36,7 +36,7 @@
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Contraseña</label>
       <div class="input-group">
-        <input type="password" class="form-control" placeholder="Contraseña"  name="password" onkeyup="checkFields()" aria-describedby="passwordHelpBlock">
+        <input type="password" class="form-control" placeholder="Contraseña"  name="password" onkeyup="checkFields()" onblur="validatePass(this.value)" aria-describedby="passwordHelpBlock">
         <span class="input-group-append">
           <button class="btn btn-outline-secondary" type="button">
             <i class="fas fa-lock"></i>
@@ -55,6 +55,9 @@
       <input type="button" name="save" disabled class="btn-success btn lg ml-3" onclick="addNewSiteToCategory()" value="Añadir">
     </div> 
   </form> 
+
+  <div id="messageAlert"></div>
+  
   <script src="site.js"></script>
 </body>
 </html>
