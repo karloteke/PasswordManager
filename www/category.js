@@ -174,7 +174,7 @@ function showCategorySites(categoryId) {
             <i class="fas fa-edit mr-3"></i>
           </div>
           <div class = "icon-container">
-            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-trash-alt" onclick="deleteSite('${site.id}', '${categoryId}')"></i>
           </div>
           `;
 
@@ -213,5 +213,50 @@ function showCategorySites(categoryId) {
     document.getElementById('messageAlert').style.display = 'none';
     document.getElementById('messageAlert').innerHTML = '';
   }
+
   
+  function deleteSite(idSite, idCategory) {
+    console.log('delete, id: ', idSite);
+    openModalConfirmation();
+    waitForModalConfirmation().then(shouldDelete => {
+      if (!shouldDelete) {
+        closeModalConfirmation();
+        return;
+      }
+
+      const apiUrl = `http://localhost:3000/sites/${idSite}`;
+  
+      // Cabecera petición
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+  
+      fetch(apiUrl, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error en la petición`);
+          }
+          return Promise.resolve();
+        })
+        .then(() => { // Después de eliminar, volver a cargar los sitios
+          fetch("http://localhost:3000/sites")
+            .then(res => res.json())
+            .then(data => {
+              showCategorySites(idCategory);
+              closeModalConfirmation(); // Cerrar el modal después de actualizar la lista
+            })
+            .catch(error => {
+              console.error('Error al cargar categorías:', error);
+            });
+        })
+        .catch(error => {
+          console.error('Error en la petición:', error);
+        });
+    });
+  }
+
+
   
