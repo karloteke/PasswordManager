@@ -21,9 +21,14 @@ let drawCategories = (data) => {
   });
 }
 
-fetch("http://localhost:3000/categories")
-  .then(res => res.json())
-  .then(data => drawCategories(data))
+document.addEventListener('DOMContentLoaded', function() { //Se ejecuta cuando el Dom este cargado
+  let parent = document.getElementById('categoryList');
+  if (parent) {  //Se ejecuta solo cuando el elemento esta en categoryList
+      fetch("http://localhost:3000/categories")
+          .then(res => res.json())
+          .then(data => drawCategories(data));
+  }
+});
 
 //Modal para añadir categoría
 function openModal() {
@@ -91,6 +96,7 @@ function waitForModalConfirmation() {
     }
   });
 }
+
 function deleteCategory(categoryId) {
   openModalConfirmation();
   waitForModalConfirmation().then(shouldDelete => {
@@ -132,7 +138,10 @@ function deleteCategory(categoryId) {
   });
 }
 
+let selectedCategoryId = null; // Variable global para almacenar el ID de la categoría seleccionada
+
 function showCategorySites(categoryId) {
+  selectedCategoryId = categoryId; // Almacena el ID de la categoría seleccionada
   fetch(`http://localhost:3000/categories/${categoryId}`)
     .then(result => result.json())
     .then(data => {
@@ -143,18 +152,18 @@ function showCategorySites(categoryId) {
 
       siteTableBody.innerHTML = '';
 
-      sites.forEach(sites => {
+      sites.forEach(site => {
 
         const newRow = document.createElement('tr')
 
         const nameCell = document.createElement('th')
-        nameCell.textContent = sites.name;
+        nameCell.textContent = site.name;
 
         const userCell = document.createElement('td')
-        userCell.textContent = sites.user;
+        userCell.textContent = site.user;
 
         const createdAtCell = document.createElement ('td')
-        createdAtCell.textContent = sites.createdAt;
+        createdAtCell.textContent = site.createdAt;
 
         const actionsCell = document.createElement('td');
           actionsCell.innerHTML = `
@@ -182,3 +191,27 @@ function showCategorySites(categoryId) {
     .catch(error => console.error(`Error en la petición:', ${error}`));
   }
     
+  function navigateAddSite() {
+    if (selectedCategoryId !== null) {
+      window.location.href = `/addNewSite.html?categoryId=${selectedCategoryId}`;
+    } else {
+      // Error, debes seleccionar antes una categoría
+      showMessage('Debes seleccionar primero una categoría!');
+      setTimeout(() => {
+        hideMessage();
+      }, 3000);
+    }
+  
+  }
+  
+  function showMessage(text) {
+    document.getElementById('messageAlert').style.display = 'block';
+    document.getElementById('messageAlert').innerHTML = text;
+  }
+  
+  function hideMessage() {
+    document.getElementById('messageAlert').style.display = 'none';
+    document.getElementById('messageAlert').innerHTML = '';
+  }
+  
+  
