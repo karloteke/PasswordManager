@@ -4,26 +4,83 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Iconos-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="category.js"></script>
+  <title>Gestor de contraseñas</title>
 </head>
-<body>
-  <main>
-    <ul></ul>
-  </main>
-  <script>
-    let drawData = (data) => {
-      data.forEach(category => {
-        let parent = document.getElementsByTagName('ul')[0]
-        let child = document.createElement('li')
-        // child.innerText = JSON.stringify(category)
-        child.innerText = category.name
-        parent.appendChild(child)
-      })
-    }
 
-    fetch("http://localhost:3000/categories")
-      .then(res => res.json())
-      .then(data => drawData(data))
-  </script>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="navbar-wrapper">
+        <h1 class="navbar-brand navbar-light">Gestor de Contraseñas</h1>
+    </div>
+   
+  </nav>
+  <header>
+    <div class="container">
+      <button type="button" class="btn btn-info" onclick="openModal()">Añadir categoría</button>
+      <button onclick="navigateAddSite()" class="btn-info btn lg">Añadir sitio</button> 
+    </div>
+  </header>
+
+  <section>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h4 class="mb-3">CATEGORÍAS</h4>
+          <div class="list-group" id="categoryList">
+       
+          </div>
+        </div>
+       
+        <div class="col-md-8 py-5">
+          <table class="table" id="siteInformation">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">SITIO</th>
+                <th scope="col">USUARIO</th>
+                <th scope="col">FECHA CREACIÓN</th>
+                <th scope="col">ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="siteTableBody">
+    
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="myModal" id="myModal">
+    <div class="form-group">
+      <h3>Nombre</h3>
+      <p class="error" id="error">Error. Debes introducir un nombre.</p>
+      <input type="text" id="name">
+      <button class="btn btn-success" onclick="addCategory()">Añadir</button>
+      <button class="btn btn-danger ml-4" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+  <div class="myModal" id="myModalConfirmation">
+    <div class="form-group">
+      <h3>¿Estas seguro que quieres eliminar?</h3>
+      <button class="btn btn-success" id="yesBtn">Si</button>
+      <button class="btn btn-danger ml-4" id="noBtn">No</button>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <div id="messageAlert"></div>
+  
+  <script src="category.js"></script>
+   <!-- Bootstrap JS y dependencias -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
