@@ -93,4 +93,19 @@ function addNewSiteToCategory() {
     document.getElementById('messageAlert').innerHTML = '';
   }
 
+  function generatePassword(){
+    const length = 8;
+    const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
+    
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const indexRandom = Math.floor(Math.random() * characters.length);
+      password += characters.charAt(indexRandom);
+
+    // Mostrar la contraseña generada en el campo de contraseña
+    document.getElementById('password').value = password;
+    hideMessage(); 
+    }
+  }
+
   

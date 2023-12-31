@@ -19,26 +19,26 @@
 
   <form class="container mt-5 ml-6" name="login" id="login">
     <label for="basic-name" class="form-label">Name</label>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="name" name="name" onkeyup="checkFields()" aria-describedby="basic-addon3">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="name" name="name" id="name" onkeyup="checkFields()" aria-describedby="basic-addon3">
     </div>
 
     <label for="basic-url" class="form-label">URL</label>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="http://facebook.com" name="url" aria-describedby="basic-addon3">
+      <input type="text" class="form-control" placeholder="http://facebook.com" name="url" id="url" aria-describedby="basic-addon3">
     </div>
     
     <label for="basic-user" class="form-label">Usuario</label>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Nombre usuario"  name="user" onkeyup="checkFields()" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="Nombre usuario"  name="user" id= "user" onkeyup="checkFields()" aria-label="Username" aria-describedby="basic-addon1">
     </div>
 
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Contraseña</label>
       <div class="input-group">
-        <input type="password" class="form-control" placeholder="Contraseña"  name="password" onkeyup="checkFields()" onblur="validatePass(this.value)" aria-describedby="passwordHelpBlock">
+        <input type="password" class="form-control" placeholder="Contraseña"  name="password" id="password" onkeyup="checkFields()" onblur="validatePass(this.value)" aria-describedby="passwordHelpBlock">
         <span class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button">
+          <button class="btn btn-outline-secondary" type="button" onclick="generatePassword()">
             <i class="fas fa-lock"></i>
           </button>
         </span>
